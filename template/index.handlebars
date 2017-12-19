@@ -47,7 +47,7 @@
                             {{/state}}
                         </div>
 
-                        {{#if markup}}
+                        {{#xIf markup '||' preview }}
                             <div class="example">
                                 {{{markup.example}}}
                             </div>
@@ -60,9 +60,13 @@
                             {{/state}}
 
 <pre class="prettyprint lang-html markup">
+    {{#if preview }}
+{{{preview.html}}}
+    {{else}}
 {{{markup.escaped}}}
+    {{/if}}
 </pre>
-                        {{/if}}
+                        {{/xIf}}
                     </div>
                 {{/blocks}}
             </div>

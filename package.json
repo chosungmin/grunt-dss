@@ -33,6 +33,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "dss": "1.0.4",
+    "ejs": "2.5.7",
     "handlebars": "4.0.11"
   },
   "deprecated": false,

@@ -14,15 +14,16 @@ module.exports = function(grunt) {
     dss: {
       docs: {
         options: {
-          template: 'template/'
+          template: 'template/',
+          include_empty_files: false,
         },
         files: {
-          'docs/': 'example/**/*.{css,scss,sass,less,styl}'
+          'docs/': 'examples/**/*.{css,scss,sass,less,styl}'
         }
       }
     },
 
-    // 
+    //
     jshint: {
       all: [
         'Gruntfile.js',
