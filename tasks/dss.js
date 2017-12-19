@@ -24,7 +24,14 @@ module.exports = function(grunt){
       template: __dirname + '/../template/',
       template_index: 'index.handlebars',
       output_index: 'index.html',
-      include_empty_files: true
+      include_empty_files: true,
+      handlebar_helpers: {
+          example: function (context, className) {
+              className = (className || '').replace(/^\./, '');
+              return context.replace('{class}', className);
+          }
+      },
+      import_css: []
     });
 
     // Output options if --verbose cl option is passed
@@ -33,6 +40,25 @@ module.exports = function(grunt){
     // Describe custom parsers
     for(key in options.parsers){
       dss.parser(key, options.parsers[key]);
+    }
+
+    // Save build css
+    var import_css = [];
+    options.import_css.forEach(function(f) {
+      // Warn on and remove invalid build files (if nonull was set).
+      // if(!grunt.file.exists(f)){
+      //   grunt.log.warn('Build file "' + f + '" not found.');
+      //   return false;
+      // }
+
+      import_css.push({
+        file: f
+      });
+    });
+
+    // Describe custom handlebars helpers
+    for(helper in options.handlebar_helpers) {
+      handlebars.registerHelper( helper, options.handlebar_helpers[helper] );
     }
 
     // Build Documentation
@@ -67,7 +93,7 @@ module.exports = function(grunt){
         dss.parse(grunt.file.read(filename), { file: filename }, function(parsed) {
 
           // Continue only if file contains DSS annotation
-          if (options.include_empty_files || parsed.blocks.length) {
+          if (options.include_empty_files || (parsed.blocks.length && !!parsed.blocks[0].name)) {
             // Add filename
             parsed['file'] = filename;
 
@@ -107,7 +133,8 @@ module.exports = function(grunt){
             // Create HTML ouput
             var html = handlebars.compile(grunt.file.read(template_filepath))({
               project: grunt.file.readJSON('package.json'),
-              files: styleguide
+              files: styleguide,
+              import_css: import_css
             });
 
             var output_type = 'created', output = null;

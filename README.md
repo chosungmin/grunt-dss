@@ -28,6 +28,20 @@ Default value: `[]`
 
 Files to parse. Using Grunt default `files` syntax. [More about that on Gruntjs wiki](https://github.com/gruntjs/grunt/wiki/Configuring-tasks#files).
 
+#### options.handlebar_helpers
+
+Type: `Object`
+Default value: `{}`
+
+An object filled with key value pairs of handlebars helpers. The key is the helber name and the value is the callback function. See the [Handlebar documentation](http://handlebarsjs.com/#helpers) for more information.
+
+#### options.import_css
+
+Type: `Array`
+Default value: `[]`
+
+Add css file for preview.
+
 #### options.template
 
 Type: `String`
