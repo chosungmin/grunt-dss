@@ -42,6 +42,10 @@
                                 <p class="description">{{description}}</p>
                             {{/if}}
 
+                            {{#if preview}}
+                                <p class="file">{{preview.path}}</p>
+                            {{/if}}
+
                             {{#state}}
                                 <p class="state"><span>{{name}}</span> - {{description}}</p>
                             {{/state}}
@@ -49,22 +53,32 @@
 
                         {{#xIf markup '||' preview }}
                             <div class="example">
-                                {{{markup.example}}}
+                                {{#if preview }}
+                                {{{replaceClassName preview.html ''}}}
+                                {{else}}
+                                {{{replaceClassName markup.example ''}}}
+                                {{/if}}
                             </div>
+
+
 
                             {{#state}}
                                 <div class="example state">
                                     <div class="name">{{name}}</div>
-                                    {{{example ../markup.example name}}}
+                                    {{#if ../preview }}
+                                    {{{replaceClassName ../preview.html name}}}
+                                    {{else}}
+                                    {{{replaceClassName ../markup.example name}}}
+                                    {{/if}}
                                 </div>
                             {{/state}}
 
 <pre class="prettyprint lang-html markup">
-    {{#if preview }}
-{{{preview.html}}}
-    {{else}}
-{{{markup.escaped}}}
-    {{/if}}
+{{#if preview }}
+{{{replaceClassName preview.escape_html ''}}}
+{{else}}
+{{{replaceClassName markup.escaped ''}}}
+{{/if}}
 </pre>
                         {{/xIf}}
                     </div>

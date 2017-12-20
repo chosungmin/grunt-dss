@@ -35,8 +35,13 @@ module.exports = function(grunt){
 
 		// Default handlebar helpers
 		var default_handlebar_helpers = {
-			example: function (context, className) {
-					className = (className || '').replace(/^\./, '');
+			replaceClassName: function (context, className) {
+					className = className || '';
+
+					if (!!className) {
+						className = className.replace(/^\./, '').replace(/\./g, ' ');
+					}
+
 					return context.replace('{class}', className);
 			},
 
@@ -78,7 +83,35 @@ module.exports = function(grunt){
 			    } else {
 			        return options.inverse(this);
 			    }
-			}
+			},
+
+			// preview: function (filePath, params, returnType) {
+			// 	var filename = [process.cwd(), filePath].join('/');
+			// 	var data = params || {};
+			// 	var options = {};
+
+			// 	var compile = ejs.renderFile(filename, data, options, function(err, str){
+			// 		if (err) {
+			// 			return {
+			// 				path: line,
+			// 				html: err.message,
+			// 				escape_html: err.message
+			// 			}
+			// 		}
+
+			// 		var html = str.replace(/^\s*[\r\n]/gm, '');
+
+			// 		if (returnType == 'path') {
+			// 			return filePath;
+			// 		} else if (returnType == 'html') {
+			// 			return html;
+			// 		} else if (returnType == 'html') {
+			// 			return html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+			// 		}
+			// 	});
+
+			// 	return compile;
+			// }
 		};
 
 		// Describe file parsers
@@ -90,20 +123,28 @@ module.exports = function(grunt){
 			var compile = ejs.renderFile(filename, data, options, function(err, str){
 				if (err) {
 					return {
-						path: filename,
-						html: err
+						path: line,
+						html: err.message,
+						escape_html: err.message
 					}
 				}
 
-				console.log(str.replace(/\n|\r|\s/g, ''));
+				var html = str.replace(/^\s*[\r\n]/gm, '');
+
 				return {
-					path: filename,
-					html: str.replace(/^\s|\n|\r/g, '')
+					path: line,
+					html: html,
+					escape_html: html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
 				}
 			});
 
 			return compile;
 		});
+
+		// Describe params parsers
+		// dss.parser('params', function(i, line, block, file){
+		// 	return line;
+		// });
 
 		// Describe custom parsers
 		for(key in options.parsers){
@@ -119,14 +160,13 @@ module.exports = function(grunt){
 		});
 
 		// Describe custom handlebars helpers
-		var handlebarHelpers = Object.assign(default_handlebar_helpers, options.handlebar_helpers);
+		var handlebarHelpers = Object.assign({}, default_handlebar_helpers, options.handlebar_helpers);
 		for(helper in handlebarHelpers) {
 			handlebars.registerHelper( helper, handlebarHelpers[helper] );
 		}
 
 		// Build Documentation
 		this.files.forEach(function(f){
-
 			// Filter files based on their existence
 			var src = f.src.filter(function(filepath) {
 

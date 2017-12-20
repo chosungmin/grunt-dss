@@ -16,6 +16,7 @@ module.exports = function(grunt) {
         options: {
           template: 'template/',
           include_empty_files: false,
+          import_css: ['band.css', 'bandComponent.scss']
         },
         files: {
           'docs/': 'examples/**/*.{css,scss,sass,less,styl}'
