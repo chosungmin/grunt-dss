@@ -56,11 +56,13 @@
                                 {{#if preview }}
                                 {{{replaceClassName preview.html ''}}}
                                 {{else}}
-                                {{{replaceClassName markup.example ''}}}
+                                {{replaceClassName markup.example ''}}
                                 {{/if}}
                             </div>
 
-
+                            {{#params}}
+                                <p class="example">{{{previewParams ../preview.path param 'html'}}}</p>
+                            {{/params}}
 
                             {{#state}}
                                 <div class="example state">
@@ -75,7 +77,7 @@
 
 <pre class="prettyprint lang-html markup">
 {{#if preview }}
-{{{replaceClassName preview.escape_html ''}}}
+{{{ replaceClassName preview.escape_html ''}}}
 {{else}}
 {{{replaceClassName markup.escaped ''}}}
 {{/if}}

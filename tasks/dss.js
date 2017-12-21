@@ -85,33 +85,41 @@ module.exports = function(grunt){
 			    }
 			},
 
-			// preview: function (filePath, params, returnType) {
-			// 	var filename = [process.cwd(), filePath].join('/');
-			// 	var data = params || {};
-			// 	var options = {};
+			previewParams: function (filePath, param, returnType) {
+				var filename = [process.cwd(), filePath].join('/');
+				var options = {};
+				var data = {};
 
-			// 	var compile = ejs.renderFile(filename, data, options, function(err, str){
-			// 		if (err) {
-			// 			return {
-			// 				path: line,
-			// 				html: err.message,
-			// 				escape_html: err.message
-			// 			}
-			// 		}
+				if (!!param) {
+					data = param.split(/,/).reduce(function(m,i){
+					    var s = i.split(':');
+					    m[s[0].replace(/\s/g, '')] = s[1].replace(/^\s?['|"]|\s?['|"]+$/g, '');
+					    return m;
+					}, {});
+				}
 
-			// 		var html = str.replace(/^\s*[\r\n]/gm, '');
+				var compile = ejs.renderFile(filename, data, options, function(err, str){
+					if (err) {
+						return {
+							path: line,
+							html: err.message,
+							escape_html: err.message
+						}
+					}
 
-			// 		if (returnType == 'path') {
-			// 			return filePath;
-			// 		} else if (returnType == 'html') {
-			// 			return html;
-			// 		} else if (returnType == 'html') {
-			// 			return html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-			// 		}
-			// 	});
+					var html = str.replace(/^\s*[\r\n]/gm, '');
 
-			// 	return compile;
-			// }
+					if (returnType == 'path') {
+						return filePath;
+					} else if (returnType == 'html') {
+						return html;
+					} else if (returnType == 'html') {
+						return html.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+					}
+				});
+
+				return compile;
+			}
 		};
 
 		// Describe file parsers
@@ -142,9 +150,11 @@ module.exports = function(grunt){
 		});
 
 		// Describe params parsers
-		// dss.parser('params', function(i, line, block, file){
-		// 	return line;
-		// });
+		dss.parser('params', function(i, line, block, file){
+			return {
+				param: line
+			}
+		});
 
 		// Describe custom parsers
 		for(key in options.parsers){
