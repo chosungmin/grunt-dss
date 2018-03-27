@@ -1,59 +1,42 @@
 {
-  "_from": "git+https://github.com/chosungmin/grunt-dss.git",
-  "_id": "grunt-dss@1.0.8",
-  "_inBundle": false,
-  "_location": "/grunt-dss",
-  "_phantomChildren": {
-    "amdefine": "1.0.1",
-    "wordwrap": "0.0.3"
-  },
-  "_requested": {
+  "name": "grunt-dss2",
+  "description": "Build UI Documentation with the DSS Parser",
+  "version": "1.0.8",
+  "homepage": "https://github.com/darcyclarke/grunt-dss",
+  "author": "darcyclarke <darcy@darcyclarke.me> (https://darcyclarke.me)",
+  "repository": {
     "type": "git",
-    "raw": "https://github.com/chosungmin/grunt-dss.git",
-    "rawSpec": "https://github.com/chosungmin/grunt-dss.git",
-    "saveSpec": "git+https://github.com/chosungmin/grunt-dss.git",
-    "fetchSpec": "https://github.com/chosungmin/grunt-dss.git",
-    "gitCommittish": null
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "git+https://github.com/chosungmin/grunt-dss.git#cc04554713bda6bbe4c75a0381265f31a408dee7",
-  "_spec": "https://github.com/chosungmin/grunt-dss.git",
-  "_where": "/Users/ca/work/git/band-web/band-webclient/markup",
-  "author": {
-    "name": "darcyclarke",
-    "email": "darcy@darcyclarke.me",
-    "url": "https://darcyclarke.me"
+    "url": "https://github.com/darcyclarke/grunt-dss"
   },
   "bugs": {
     "url": "https://github.com/darcyclarke/grunt-dss/issues"
   },
-  "bundleDependencies": false,
-  "dependencies": {
-    "dss": "1.0.4",
-    "ejs": "2.5.7",
-    "handlebars": "4.0.11"
-  },
-  "deprecated": false,
-  "description": "Build UI Documentation with the DSS Parser",
-  "devDependencies": {
-    "grunt": "~1.0.1",
-    "grunt-contrib-clean": "~1.1.0",
-    "grunt-contrib-jshint": "~1.1.0",
-    "grunt-contrib-nodeunit": "~1.0.0"
-  },
-  "directories": {
-    "doc": "docs",
-    "example": "example",
-    "test": "test"
-  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/darcyclarke/grunt-dss/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "Gruntfile.js",
   "engines": {
     "node": ">= 0.8.0"
   },
-  "gitHead": "9ac17c8a2715bede330bd4fed3ba8e4648ce1542",
-  "homepage": "https://github.com/darcyclarke/grunt-dss",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "dss": "1.0.4",
+    "handlebars": "4.0.11"
+  },
+  "devDependencies": {
+    "grunt": "~1.0.2",
+    "grunt-contrib-jshint": "~1.1.0",
+    "grunt-contrib-nodeunit": "~1.0.0",
+    "grunt-contrib-clean": "~1.1.0"
+  },
+  "peerDependencies": {
+    "grunt": "~1.0.2"
+  },
   "keywords": [
     "gruntplugin",
     "css",
@@ -63,23 +46,11 @@
     "documentation",
     "cli"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/darcyclarke/grunt-dss/blob/master/LICENSE-MIT"
-    }
-  ],
-  "main": "Gruntfile.js",
-  "name": "grunt-dss",
-  "peerDependencies": {
-    "grunt": "~1.0.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/darcyclarke/grunt-dss.git"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "version": "1.0.8"
+  "gitHead": "9ac17c8a2715bede330bd4fed3ba8e4648ce1542",
+  "readmeFilename": "README.md",
+  "directories": {
+    "doc": "docs",
+    "example": "example",
+    "test": "test"
+  }
 }
